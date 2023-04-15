@@ -1,5 +1,11 @@
 import React from "react";
+import Header from "../../components/Header/ProductListHeader";
 
 export default function ProductList() {
-  return <div>ProductList</div>;
+  return (
+    <>
+      <Header />
+      <div>ProductList</div>
+    </>
+  );
 }
