@@ -1,16 +1,16 @@
 .header {
-    margin-top: 1.3rem;
+    width: 100%;
 }
 
 .navigation {
-    margin: 0 1.5rem;
+    padding: 17px 170px 0px 170px;
 }
 
 .navbar-nav {
-  gap: 1rem;
+  gap: 2rem;
 }
 
-.btn {
+.nav-button {
   background-color: transparent;
   border: 1px solid #000;
   border-radius: 0;
@@ -18,7 +18,8 @@
   padding: 10px 20px;
 }
 
-.btn:hover {
+.nav-button:hover {
   background-color: #000;
   color: #fff;
+  transition: 0.2s;
 }
