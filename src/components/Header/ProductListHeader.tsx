@@ -4,7 +4,7 @@ import "./Header.scss"
 
 export default function ProductListHeader() {
   return (
-    <header className="header d-flex flex-column justify-content-center">
+    <header className="header">
       <nav className="navigation d-flex justify-content-between align-items-center">
         <h2>Product List</h2>
         <div>

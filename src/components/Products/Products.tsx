@@ -1,11 +1,19 @@
 import React from "react";
 import Product from "../Product/Product";
-import "./Products.scss"
+import "./Products.scss";
+import { IProduct } from "../Product/Product";
 
-export default function Products() {
+interface Props {
+  products: IProduct[]
+}
+
+
+export default function Products({ products } : Props) {
   return (
     <div className="products">
-      <Product id={2} sku="asdca" name="Game" price={12.3} product_type="DVD" />
+      {products.map((product) => (
+        <Product key={product.id} {...product} />
+      ))}
     </div>
   );
 }

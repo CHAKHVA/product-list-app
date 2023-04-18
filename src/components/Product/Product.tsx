@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useId } from "react";
 import "./Product.scss";
 
-export interface User {
+export interface IProduct {
   id: number;
   sku: string;
   name: string;
@@ -14,20 +14,20 @@ export interface User {
   length?: number;
 }
 
-export default function Product(user: User) {
-  type UserValue = User[keyof User];
-  const values: UserValue[] = Object.values(user);
+export default function Product(product: IProduct) {
+  type ProductValue = IProduct[keyof IProduct];
+  const values: ProductValue[] = Object.values(product);
   return (
-    <div className="product" id={user.id.toString()}>
+    <div className="product" id={product.id.toString()}>
       <input
         type="checkbox"
         name=""
-        id={user.id.toString()}
+        id={product.id.toString()}
         className="delete-checkbox"
       />
       <ul className="product-items">
         {values.map((item) => (
-          <li className="list-item">{item}</li>
+          <li key={useId()} className="list-item">{item}</li>
         ))}
       </ul>
     </div>
