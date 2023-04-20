@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $num = $result->num_rows;
     if ($num > 0) {
         $products = array();
-        $products['data'] = array();
 
         while ($row = $result->fetch_assoc()) {
             extract($row);
@@ -32,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 "width" => $width,
                 "length" => $length
             );
-            array_push($products['data'], $product_item);
+            array_push($products, $product_item);
         }
         http_response_code(200);
         echo json_encode($products);
