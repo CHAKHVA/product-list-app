@@ -1,6 +1,6 @@
 <?php
 
-abstract class Product
+class Product
 {
     protected $id;
     protected $sku;
@@ -8,65 +8,20 @@ abstract class Product
     protected $price;
     protected $product_type;
 
-    public function __construct($id, $sku, $name, $price)
+    protected $conn;
+    protected $table_name = "product";
+
+    public function __construct($db)
     {
-        $this->id = $id;
-        $this->sku = $sku;
-        $this->name = $name;
-        $this->price = $price;
+        $this->conn = $db;
     }
 
-    public function getId()
+    public function read_products()
     {
-        return $this->id;
+        $query = "SELECT * FROM " . $this->table_name . " ORDER BY id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result;
     }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    public function getSku()
-    {
-        return $this->sku;
-    }
-
-    public function setSku($sku)
-    {
-        $this->sku = $sku;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    public function setPrice($price)
-    {
-        $this->price = $price;
-    }
-
-    public function getProductType()
-    {
-        return $this->product_type;
-    }
-
-    public function setProductType($product_type)
-    {
-        $this->product_type = $product_type;
-    }
-
-    abstract public function getSpecificAttribute();
-
-    abstract public function setSpecificAttribute($attribute);
 }

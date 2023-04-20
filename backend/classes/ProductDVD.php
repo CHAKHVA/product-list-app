@@ -4,9 +4,9 @@ class DVD extends Product
 {
     private $size;
 
-    public function __construct($sku, $name, $price, $size)
+    public function __construct($id, $sku, $name, $price, $size)
     {
-        parent::__construct($sku, $name, $price);
+        parent::__construct($id, $sku, $name, $price);
         $this->product_type = 'DVD';
         $this->size = $size;
     }

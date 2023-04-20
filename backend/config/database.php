@@ -5,30 +5,27 @@ class Database
     private $host = "localhost";
     private $user = "root";
     private $password = "";
-    private $dbname = "products_list";
+    private $db_name = "products_list";
 
-    private $connection;
+    public $conn;
 
-    private function __construct()
+    public function getConnection()
     {
-        $this->connect();
-    }
+        $this->conn = new mysqli($this->host, $this->user, $this->password, $this->db_name);
 
-    private function connect()
-    {
-        $this->connection = new mysqli($this->host, $this->user, $this->password, $this->dbname);
-
-        if ($this->connection->connect_error) {
-            die("Connection failed: " . $this->connection->connect_error);
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
         }
+
+        return $this->conn;
     }
 
     public function query($sql)
     {
-        $result = $this->connection->query($sql);
+        $result = $this->conn->query($sql);
 
-        if ($this->connection->error) {
-            die("Query failed: " . $this->connection->error);
+        if ($this->conn->error) {
+            die("Query failed: " . $this->conn->error);
         }
 
         return $result;
@@ -36,11 +33,11 @@ class Database
 
     public function escapeString($string)
     {
-        return $this->connection->real_escape_string($string);
+        return $this->conn->real_escape_string($string);
     }
 
     public function close()
     {
-        $this->connection->close();
+        $this->conn->close();
     }
 }
