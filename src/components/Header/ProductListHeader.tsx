@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import "./Header.scss"
+import "./Header.scss";
+import axios from "axios";
+import IDContext from "../../contexts/IDContext";
 
 export default function ProductListHeader() {
+  const { ids } = useContext(IDContext);
+  const handleClick = () => {
+    axios
+      .delete("http://localhost:8000/api/delete_products.php", { data : {"ids" : ids}})
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return (
     <header className="header">
       <nav className="navigation d-flex justify-content-between align-items-center">
@@ -17,7 +30,12 @@ export default function ProductListHeader() {
               </Link>
             </li>
             <li className="nav-item">
-              <button type="button" className="nav-button" id="delete-product-button">
+              <button
+                type="button"
+                className="nav-button"
+                id="delete-product-button"
+                onClick={handleClick}
+              >
                 MASS DELETE
               </button>
             </li>

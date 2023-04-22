@@ -1,5 +1,6 @@
-import React, { useId } from "react";
+import React, { ChangeEvent, useContext } from "react";
 import "./Product.scss";
+import IDContext from "../../contexts/IDContext";
 
 export interface IProduct {
   id: number;
@@ -15,8 +16,23 @@ export interface IProduct {
 }
 
 export default function Product(product: IProduct) {
+  const { ids, addId, removeId } = useContext(IDContext);
+
   type ProductValue = IProduct[keyof IProduct];
   const values: ProductValue[] = Object.values(product);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked === true) {
+      if (!ids.includes(parseInt(e.target.id))) {
+        addId(parseInt(e.target.id));
+      }
+    } else {
+      if (ids.includes(parseInt(e.target.id))) {
+        removeId(parseInt(e.target.id));
+      }
+    }
+  };
+
   return (
     <div className="product" id={product.id.toString()}>
       <input
@@ -24,11 +40,21 @@ export default function Product(product: IProduct) {
         name=""
         id={product.id.toString()}
         className="delete-checkbox"
+        onChange={handleChange}
       />
       <ul className="product-items">
-        {values.map((item) => (
-          <li key={useId()} className="list-item">{item}</li>
-        ))}
+        {values.map(
+          (item, index) =>
+            item &&
+            item !== product.id && (
+              <li
+                key={product.id.toString() + index + item}
+                className="list-item"
+              >
+                {item}
+              </li>
+            )
+        )}
       </ul>
     </div>
   );

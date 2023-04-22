@@ -19,25 +19,4 @@ class Database
 
         return $this->conn;
     }
-
-    public function query($sql)
-    {
-        $result = $this->conn->query($sql);
-
-        if ($this->conn->error) {
-            die("Query failed: " . $this->conn->error);
-        }
-
-        return $result;
-    }
-
-    public function escapeString($string)
-    {
-        return $this->conn->real_escape_string($string);
-    }
-
-    public function close()
-    {
-        $this->conn->close();
-    }
 }

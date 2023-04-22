@@ -16,12 +16,22 @@ class Product
         $this->conn = $db;
     }
 
-    public function read_products()
+    public function readProducts()
     {
         $query = "SELECT * FROM " . $this->table_name . " ORDER BY id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result;
+    }
+
+    public function deleteProduct($id)
+    {
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = " . $id;
+        $stmt = $this->conn->prepare($query);
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
     }
 }
