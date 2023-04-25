@@ -22,7 +22,7 @@ export default function Product(product: IProduct) {
   const values: ProductValue[] = Object.values(product);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked === true) {
+    if (e.target.checked) {
       if (!ids.includes(parseInt(e.target.id))) {
         addId(parseInt(e.target.id));
       }

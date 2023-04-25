@@ -7,7 +7,7 @@ header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 header('HTTP/1.1 200 OK');
 
 require_once '../config/database.php';
-require_once '../classes/Product.php';
+require_once '../models/Product.php';
 
 
 $database = new Database();

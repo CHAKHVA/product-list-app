@@ -4,7 +4,7 @@ header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
 require_once '../config/database.php';
-require_once '../classes/Product.php';
+require_once '../models/Product.php';
 
 
 $database = new Database();

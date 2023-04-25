@@ -6,10 +6,12 @@ import IDContext from "../../contexts/IDContext";
 
 export default function ProductListHeader() {
   const { ids } = useContext(IDContext);
+  
   const handleClick = () => {
     axios
       .delete("http://localhost:8000/api/delete_products.php", { data : {"ids" : ids}})
       .then((response) => {
+        window.location.reload();
         console.log(response.data);
       })
       .catch((error) => {

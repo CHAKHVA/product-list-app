@@ -2,7 +2,8 @@
 
 abstract class Product
 {
-    const TABLE_NAME = "product";
+    protected $conn;
+    protected $table_name = "product";
 
     protected $id;
     protected $sku;
@@ -10,11 +11,18 @@ abstract class Product
     protected $price;
     protected $product_type;
 
-    protected $conn;
-
-    public function __construct($db, $id, $sku, $name, $price, $product_type)
+    public function __construct($db)
     {
         $this->conn = $db;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
@@ -48,22 +56,18 @@ abstract class Product
         $this->price = $price;
     }
 
-    public function readProducts()
+    public function getProductType()
     {
-        $query = "SELECT * FROM " . $this->table_name . " ORDER BY id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result;
+        return $this->product_type;
     }
 
-    public function deleteProduct($id)
+    public function setProductType($product_type)
     {
-        $query = "DELETE FROM " . $this->table_name . " WHERE id = " . $id;
-        $stmt = $this->conn->prepare($query);
-        if ($stmt->execute()) {
-            return true;
-        }
-        return false;
+        $this->product_type = $product_type;
     }
+
+    protected abstract function getSpecificAttributes();
+    protected abstract function createProduct();
+    protected abstract function readProducts();
+    protected abstract function deleteProducts();
 }
