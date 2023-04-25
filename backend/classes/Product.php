@@ -1,7 +1,9 @@
 <?php
 
-class Product
+abstract class Product
 {
+    const TABLE_NAME = "product";
+
     protected $id;
     protected $sku;
     protected $name;
@@ -9,11 +11,41 @@ class Product
     protected $product_type;
 
     protected $conn;
-    protected $table_name = "product";
 
-    public function __construct($db)
+    public function __construct($db, $id, $sku, $name, $price, $product_type)
     {
         $this->conn = $db;
+        $this->id = $id;
+    }
+
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    public function setSku($sku)
+    {
+        $this->sku = $sku;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function setPrice($price)
+    {
+        $this->price = $price;
     }
 
     public function readProducts()
