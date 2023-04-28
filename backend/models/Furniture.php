@@ -8,8 +8,7 @@ class Furniture extends Product
 
     public function __construct($id, $sku, $name, $price, $height, $width, $length)
     {
-        parent::__construct($id, $sku, $name, $price);
-        $this->product_type = 'Furniture';
+        parent::__construct($id, $sku, $name, $price, "Furniture");
         $this->height = $height;
         $this->width = $width;
         $this->length = $length;
@@ -45,16 +44,8 @@ class Furniture extends Product
         $this->length = $length;
     }
 
-    public function getSpecificAttribute()
+    public function getSpecificAttributes()
     {
-        return "Dimensions: {$this->getHeight()}x{$this->getWidth()}x{$this->getLength()}";
-    }
-
-    public function setSpecificAttribute($dimensions)
-    {
-        list($height, $width, $length) = explode('x', $dimensions);
-        $this->setHeight($height);
-        $this->setWidth($width);
-        $this->setLength($length);
+        return "DimensionZ: {$this->getHeight()}x{$this->getWidth()}x{$this->getLength()}";
     }
 }

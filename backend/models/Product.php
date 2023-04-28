@@ -2,18 +2,20 @@
 
 abstract class Product
 {
-    protected $conn;
-    protected $table_name = "product";
 
-    protected $id;
-    protected $sku;
-    protected $name;
-    protected $price;
-    protected $product_type;
+    public $id;
+    public $sku;
+    public $name;
+    public $price;
+    public $product_type;
 
-    public function __construct($db)
+    public function __construct($id, $sku, $name, $price, $product_type)
     {
-        $this->conn = $db;
+        $this->id = $id;
+        $this->sku = $sku;
+        $this->name = $name;
+        $this->price = $price;
+        $this->product_type = $product_type;
     }
 
     public function getId()
@@ -66,8 +68,5 @@ abstract class Product
         $this->product_type = $product_type;
     }
 
-    protected abstract function getSpecificAttributes();
-    protected abstract function createProduct();
-    protected abstract function readProducts();
-    protected abstract function deleteProducts();
+    public abstract function getSpecificAttributes();
 }
