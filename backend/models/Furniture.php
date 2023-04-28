@@ -1,5 +1,7 @@
 <?php
 
+include_once('Product.php');
+
 class Furniture extends Product
 {
     private $height;
@@ -44,8 +46,14 @@ class Furniture extends Product
         $this->length = $length;
     }
 
-    public function getSpecificAttributes()
+    public function toArray()
     {
-        return "DimensionZ: {$this->getHeight()}x{$this->getWidth()}x{$this->getLength()}";
+        return [
+            "id" => $this->getId(),
+            "sku" => $this->getSku(),
+            "name" => $this->getName(),
+            "price" => "{$this->getPrice()} $",
+            "dimension" => "Dimension: {$this->getHeight()}x{$this->getWidth()}x{$this->getLength()}",
+        ];
     }
 }

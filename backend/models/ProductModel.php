@@ -6,7 +6,7 @@ require_once 'Furniture.php';
 class ProductModel
 {
     private $db;
-    private $table_name = "products";
+    private $table_name = "product";
 
     public function __construct($db)
     {
@@ -28,6 +28,37 @@ class ProductModel
         }
     }
 
+    public function createProduct(Product $product)
+    {
+        $query = "INSERT INTO {$this->table_name} (sku, name, price, product_type, size, weight, height, width, length) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+
+        $sku = $product->getSku();
+        $name = $product->getName();
+        $price = $product->getPrice();
+        $product_type = $product->getProductType();
+        $size = null;
+        $weight = null;
+        $height = null;
+        $width = null;
+        $length = null;
+
+        if ($product instanceof DVD) {
+            $size = $product->getSize();
+        }
+        else if ($product instanceof Book) {
+            $weight = $product->getWeight();
+        }
+        else if ($product instanceof Furniture) {
+            $height = $product->getHeight();
+            $width = $product->getWidth();
+            $length = $product->getLength();
+        }
+
+        $stmt->bind_param('ssdsiiiii', $sku, $name, $price, $product_type, $size, $weight, $height, $width, $length);
+        $stmt->execute();
+    }
+
     public function readProducts()
     {
         $query = "SELECT * FROM {$this->table_name} ORDER BY id";
@@ -36,28 +67,15 @@ class ProductModel
         $products = array();
 
         while ($row = $result->fetch_assoc()) {
-            $products[] = $this->createProductObject($row);
+            $product = $this->createProductObject($row);
+            $products[] = $product->toArray();
         }
-
         return $products;
     }
 
-
-    /*public function createProduct($product)
-    {
-        $query = "INSERT INTO products (name, price, type, additional_info) VALUES (?, ?, ?, ?)";
-        $stmt = $this->db->prepare($query);
-        $name = $product->getName();
-        $price = $product->getPrice();
-        $type = $product->getType();
-        $additional_info = $product->getAdditionalInfo();
-        $stmt->bind_param('sdss', $name, $price, $type, $additional_info);
-        $stmt->execute();
-    }*/
-
     public function deleteProduct($id)
     {
-        $query = "DELETE FROM products WHERE id = ?";
+        $query = "DELETE FROM {$this->table_name} WHERE id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('i', $id);
         $stmt->execute();

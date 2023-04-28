@@ -1,5 +1,7 @@
 <?php
 
+include_once('Product.php');
+
 class Book extends Product
 {
     private $weight;
@@ -20,8 +22,14 @@ class Book extends Product
         $this->weight = $weight;
     }
 
-    public function getSpecificAttributes()
+    public function toArray()
     {
-        return "Weight {$this->getWeight()}KG";
+        return [
+            "id" => $this->getId(),
+            "sku" => $this->getSku(),
+            "name" => $this->getName(),
+            "price" => "{$this->getPrice()} $",
+            "weight" => "Weight {$this->getWeight()}KG",
+        ];
     }
 }

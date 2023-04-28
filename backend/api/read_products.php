@@ -7,12 +7,15 @@ require_once '../config/database.php';
 require_once '../controllers/ProductController.php';
 
 
-$database = new Database();
-$db = $database->getConnection();
-
-$controller = new ProductController($db);
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    $database = new Database();
+    $db = $database->getConnection();
+    $controller = new ProductController($db);
     $products = $controller->readProducts();
     echo json_encode($products);
 } else {

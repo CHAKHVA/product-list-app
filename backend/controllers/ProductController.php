@@ -1,5 +1,5 @@
 <?php
-require_once 'ProductModel.php';
+require_once '../models/ProductModel.php';
 
 class ProductController
 {
@@ -10,26 +10,27 @@ class ProductController
         $this->model = new ProductModel($db);
     }
 
-    /*public function createProduct($type, $name, $price, $additionalInfo)
+    public function createProduct($data)
     {
-        $product = null;
+        extract($data);
 
-        switch ($type) {
+        $product = null;
+        switch ($product_type) {
             case 'DVD':
-                $product = new DVD(null, $name, $price, $additionalInfo);
+                $product = new DVD(null, $sku, $name, $price, $size);
                 break;
             case 'Book':
-                $product = new Book(null, $name, $price, $additionalInfo);
+                $product = new Book(null, $sku, $name, $price, $weight);
                 break;
             case 'Furniture':
-                $product = new Furniture(null, $name, $price, $additionalInfo);
+                $product = new Furniture(null, $sku, $name, $price, $height, $width, $length);
                 break;
         }
 
         if ($product) {
-            $this->model->addProduct($product);
+            $this->model->createProduct($product);
         }
-    }*/
+    }
 
     public function readProducts()
     {

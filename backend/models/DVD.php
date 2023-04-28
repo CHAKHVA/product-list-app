@@ -1,5 +1,7 @@
 <?php
 
+include_once('Product.php');
+
 class DVD extends Product
 {
     private $size;
@@ -20,9 +22,14 @@ class DVD extends Product
         $this->size = $size;
     }
 
-    public function getSpecificAttributes()
+    public function toArray()
     {
-        return "Size: {$this->getSize()} MB";
+        return [
+            "id" => $this->getId(),
+            "sku" => $this->getSku(),
+            "name" => $this->getName(),
+            "price" => "{$this->getPrice()} $",
+            "size" => "Size: {$this->getSize()} MB",
+        ];
     }
-
 }

@@ -68,5 +68,5 @@ abstract class Product
         $this->product_type = $product_type;
     }
 
-    public abstract function getSpecificAttributes();
+    public abstract function toArray();
 }
