@@ -45,7 +45,6 @@ export default function Product(product: IProduct) {
       <ul className="product-items">
         {values.map(
           (item, index) =>
-            item &&
             item !== product.id && (
               <li
                 key={product.id.toString() + index + item}

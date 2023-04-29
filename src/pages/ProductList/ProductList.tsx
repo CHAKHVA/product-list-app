@@ -7,15 +7,19 @@ import IDContext from "../../contexts/IDContext";
 export default function ProductList() {
   const [products, setProducts] = React.useState([]);
 
+  const getProducts = async () => {
+    await axios
+        .get("http://localhost:8000/api/read_products.php")
+        .then((response) => {
+          setProducts(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+  }
+
   React.useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/read_products.php")
-      .then((response) => {
-        setProducts(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    getProducts().then(response => response);
   }, []);
 
   const [ids, setIds] = useState<number[]>([]);
@@ -30,7 +34,7 @@ export default function ProductList() {
 
   return (
     <>
-      <IDContext.Provider value={{ ids, addId, removeId }}>
+      <IDContext.Provider value={{ ids, addId, removeId, getProducts }}>
         <Header />
         <Products products={products} />
       </IDContext.Provider>
