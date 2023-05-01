@@ -1,19 +1,23 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 
-export default function AddFurniture() {
+interface Props {
+    handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export default function AddFurniture({ handleInputChange }: Props) {
     return (
         <div>
-            <div>
+            <div className="form-group">
                 <label htmlFor="height">Height (CM)</label>
-                <input type="text" id="height" name="height" />
+                <input type="number" id="height" name="height" onChange={handleInputChange} />
             </div>
-            <div>
+            <div className="form-group">
                 <label htmlFor="width">Width (CM)</label>
-                <input type="text" id="width" name="width" />
+                <input type="number" id="width" name="width" onChange={handleInputChange} />
             </div>
-            <div>
+            <div className="form-group">
                 <label htmlFor="length">Length (CM)</label>
-                <input type="text" id="length" name="length" />
+                <input type="number" id="length" name="length" onChange={handleInputChange} />
             </div>
             <p>Please provide dimension of the Furniture in HxWxLx format.</p>
         </div>

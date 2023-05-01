@@ -15,11 +15,9 @@ export default function AddProductHeader({ handleClick }: Props) {
         <div>
           <ul className="d-flex flex-row navbar-nav justify-content-center">
             <li className="nav-item">
-              <Link to="/">
                 <button type="button" className="nav-button" onClick={handleClick}>
                   Save
                 </button>
-              </Link>
             </li>
             <li className="nav-item">
               <Link to="/">
