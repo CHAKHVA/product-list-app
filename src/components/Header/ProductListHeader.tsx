@@ -9,7 +9,7 @@ export default function ProductListHeader() {
   
   const handleClick = async () => {
     await axios
-      .delete("http://localhost:8000/api/delete_products.php", { data : {"ids" : ids}})
+      .delete("https://juniortest-aleksandre-chakhvashvili.000webhostapp.com/api/delete_products.php", { data : {"ids" : ids}})
       .then((response) => {
         getProducts();
         console.log(response.data);

@@ -9,7 +9,7 @@ export default function ProductList() {
 
   const getProducts = async () => {
     await axios
-        .get("http://localhost:8000/api/read_products.php")
+        .get("https://juniortest-aleksandre-chakhvashvili.000webhostapp.com/api/read_products.php")
         .then((response) => {
           setProducts(response.data);
         })

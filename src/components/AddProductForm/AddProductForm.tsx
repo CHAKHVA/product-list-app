@@ -80,7 +80,7 @@ export const AddProductForm = forwardRef<HTMLFormElement, Props>((props, ref) =>
         const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
             if (validateForm()) {
-                const response = await axios.post("http://localhost:8000/api/create_product.php", productData);
+                const response = await axios.post("https://juniortest-aleksandre-chakhvashvili.000webhostapp.com/api/create_product.php", productData);
                 if (response.data.message === "SKU must be UNIQUE!") {
                     setUniqueSKU("SKU must be UNIQUE!")
                 } else {
