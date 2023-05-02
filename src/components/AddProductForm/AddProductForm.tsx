@@ -24,6 +24,7 @@ export interface IProduct {
 export const AddProductForm = forwardRef<HTMLFormElement, Props>((props, ref) => {
         const navigate = useNavigate();
         const [renderWarning, setRenderWarning] = useState<boolean>(false);
+        const [uniqueSKU, setUniqueSKU] = useState<string>("");
         const [selectedOption, setSelectedOption] = useState("DVD");
         const [productData, setProductData] = useState<IProduct>({
             sku: "",
@@ -42,7 +43,6 @@ export const AddProductForm = forwardRef<HTMLFormElement, Props>((props, ref) =>
                 ...productData,
                 [event.target.name]: event.target.value
             });
-            console.log(productData);
             setRenderWarning(false);
         }
 
@@ -80,8 +80,13 @@ export const AddProductForm = forwardRef<HTMLFormElement, Props>((props, ref) =>
         const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
             if (validateForm()) {
-                await axios.post("http://localhost:8000/api/create_product.php", productData);
-                navigate("/");
+                const response = await axios.post("http://localhost:8000/api/create_product.php", productData);
+                if (response.data.message === "SKU must be UNIQUE!") {
+                    setUniqueSKU("SKU must be UNIQUE!")
+                } else {
+                    setUniqueSKU("");
+                    navigate("/");
+                }
             } else {
                 setRenderWarning(true);
             }
@@ -113,6 +118,7 @@ export const AddProductForm = forwardRef<HTMLFormElement, Props>((props, ref) =>
                 </div>
                 {renderComponentByValue(selectedOption)}
                 {renderWarning && <div>Please fill required fields!</div>}
+                {uniqueSKU && <div>{uniqueSKU}</div>}
             </form>
         );
     }
