@@ -117,7 +117,7 @@ export const AddProductForm = forwardRef<HTMLFormElement, Props>((props, ref) =>
                     </div>
                 </div>
                 {renderComponentByValue(selectedOption)}
-                {renderWarning && <div>Please fill required fields!</div>}
+                {renderWarning && <div>Please, submit required data</div>}
                 {uniqueSKU && <div>{uniqueSKU}</div>}
             </form>
         );
