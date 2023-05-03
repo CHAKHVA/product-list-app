@@ -4,12 +4,14 @@ import "./Header.scss";
 import axios from "axios";
 import IDContext from "../../contexts/IDContext";
 
+const API_KEY = "https://juniortest-aleksandre-chakhvashvili.000webhostapp.com" || "http://localhost:8000"
+
 export default function ProductListHeader() {
   const { ids, getProducts } = useContext(IDContext);
-  
+
   const handleClick = async () => {
     await axios
-      .delete("https://juniortest-aleksandre-chakhvashvili.000webhostapp.com/api/delete_products.php", { data : {"ids" : ids}})
+      .delete(`${API_KEY}/api/delete_products.php`, { data : {"ids" : ids}})
       .then((response) => {
         getProducts();
         console.log(response.data);

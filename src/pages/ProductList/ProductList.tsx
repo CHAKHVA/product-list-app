@@ -4,12 +4,15 @@ import Products from "../../components/Products/Products";
 import axios from "axios";
 import IDContext from "../../contexts/IDContext";
 
+const API_KEY = "https://juniortest-aleksandre-chakhvashvili.000webhostapp.com" || "localhost:8000"
+
+
 export default function ProductList() {
   const [products, setProducts] = React.useState([]);
 
   const getProducts = async () => {
     await axios
-        .get("https://juniortest-aleksandre-chakhvashvili.000webhostapp.com/api/read_products.php")
+        .get(`${API_KEY}/api/read_products.php`)
         .then((response) => {
           setProducts(response.data);
         })
