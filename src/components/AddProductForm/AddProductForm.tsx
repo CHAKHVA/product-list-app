@@ -74,7 +74,32 @@ export const AddProductForm = forwardRef<HTMLFormElement, Props>((props, ref) =>
         };
 
         const validateForm = () => {
-            return !(productData.sku.length === 0 || productData.name.length === 0 || productData.price.toString().length === 0 || (productData.product_type === "DVD" && (productData.size?.toString().length === 0 || productData.size?.toString() === "e")) || (productData.product_type === "Book" && (productData.weight?.toString().length === 0 || productData.weight?.toString() === "e")) || (productData.product_type === "Furniture" && (productData.height?.toString().length === 0 || productData.height?.toString() === "e" || productData.length?.toString().length === 0 || productData.length?.toString() === "e" || productData.width?.toString().length === 0 || productData.width?.toString() === "e")));
+            const { sku, name, price, product_type, size, weight, height, length, width } = productData;
+
+            const isDVD = product_type === "DVD";
+            const isBook = product_type === "Book";
+            const isFurniture = product_type === "Furniture";
+
+            const isInvalidSKU = sku.length === 0;
+            const isInvalidName = name.length === 0;
+            const isInvalidPrice = price.toString().length === 0;
+            const isInvalidDVDSize = isDVD && (size === undefined || size?.toString().length === 0);
+            const isInvalidBookWeight = isBook && (weight === undefined || weight?.toString().length === 0);
+            const isInvalidFurnitureDimensions =
+                    isFurniture &&
+                    (height === undefined || length === undefined || width === undefined ||
+                    height?.toString().length === 0 ||
+                    length?.toString().length === 0 ||
+                    width?.toString().length === 0)
+
+            return !(
+                isInvalidSKU ||
+                isInvalidName ||
+                isInvalidPrice ||
+                isInvalidDVDSize ||
+                isInvalidBookWeight ||
+                isInvalidFurnitureDimensions
+            );
         }
 
         const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
