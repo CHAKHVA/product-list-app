@@ -4,7 +4,7 @@ import Products from "../../components/Products/Products";
 import axios from "axios";
 import IDContext from "../../contexts/IDContext";
 
-const API_KEY = "https://juniortest-aleksandre-chakhvashvili.000webhostapp.com" || "localhost:8000"
+const API_KEY = "https://juniortest-aleksandre-chakhvashvili.000webhostapp.com" && "localhost:8000"
 
 
 export default function ProductList() {

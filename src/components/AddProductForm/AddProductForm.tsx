@@ -6,7 +6,7 @@ import AddFurniture from "../AddFurniture/AddFurniture";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
-const API_KEY = "https://juniortest-aleksandre-chakhvashvili.000webhostapp.com" || "http://localhost:8000"
+const API_KEY = "https://juniortest-aleksandre-chakhvashvili.000webhostapp.com" && "http://localhost:8000"
 
 
 interface Props {
@@ -63,17 +63,14 @@ export const AddProductForm = forwardRef<HTMLFormElement, Props>((props, ref) =>
             setRenderWarning(false);
         };
 
+        const AddProductSwitch: Record<string, JSX.Element> = {
+            "DVD": <AddDVD handleInputChange={handleInputChange}/>,
+            "Book": <AddBook handleInputChange={handleInputChange}/>,
+            "Furniture": <AddFurniture handleInputChange={handleInputChange}/>
+        }
+
         const renderComponentByValue = (value: string) => {
-            switch (value) {
-                case 'DVD':
-                    return <AddDVD handleInputChange={handleInputChange}/>;
-                case 'Book':
-                    return <AddBook handleInputChange={handleInputChange}/>;
-                case 'Furniture':
-                    return <AddFurniture handleInputChange={handleInputChange}/>;
-                default:
-                    return null;
-            }
+            return AddProductSwitch[value];
         };
 
         const validateForm = () => {
