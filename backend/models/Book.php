@@ -6,7 +6,7 @@ class Book extends Product
 {
     private $weight;
 
-    public function __construct($id, $sku, $name, $price, $weight)
+    public function __construct($id, $sku, $name, $price, $weight = null)
     {
         parent::__construct($id, $sku, $name, $price, "Book");
         $this->weight = $weight;
@@ -31,5 +31,16 @@ class Book extends Product
             "price" => "{$this->getPrice()} $",
             "weight" => "Weight {$this->getWeight()}KG",
         ];
+    }
+
+    public function getAdditionalAttributes()
+    {
+        return [null, $this->weight, null, null, null];
+    }
+
+    public function setAdditionalAttributes($row)
+    {
+        extract($row);
+        $this->weight = $weight;
     }
 }

@@ -16,16 +16,20 @@ class ProductModel
     private function createProductObject($row)
     {
         extract($row);
-        switch ($product_type) {
-            case "DVD":
-                return new DVD($id, $sku, $name, $price, $size);
-            case "Book":
-                return new Book($id, $sku, $name, $price, $weight);
-            case "Furniture":
-                return new Furniture($id, $sku, $name, $price, $height, $width, $length);
-            default:
-                return null;
-        }
+
+        $product = null;
+
+        $productTypes = [
+            "DVD" => DVD::class,
+            "Book" => Book::class,
+            "Furniture" => Furniture::class,
+        ];
+
+        $productClass = $productTypes[$product_type];
+        $product = new $productClass($id, $sku, $name, $price);
+        $product->setAdditionalAttributes($row);
+
+        return $product;
     }
 
     public function createProduct(Product $product)
@@ -37,25 +41,10 @@ class ProductModel
         $name = $product->getName();
         $price = $product->getPrice();
         $product_type = $product->getProductType();
-        $size = null;
-        $weight = null;
-        $height = null;
-        $width = null;
-        $length = null;
 
-        if ($product instanceof DVD) {
-            $size = $product->getSize();
-        }
-        else if ($product instanceof Book) {
-            $weight = $product->getWeight();
-        }
-        else if ($product instanceof Furniture) {
-            $height = $product->getHeight();
-            $width = $product->getWidth();
-            $length = $product->getLength();
-        }
+        $additionalAttributes = $product->getAdditionalAttributes();
 
-        $stmt->bind_param('ssdsiiiii', $sku, $name, $price, $product_type, $size, $weight, $height, $width, $length);
+        $stmt->bind_param('ssdsiiiii', $sku, $name, $price, $product_type, ...$additionalAttributes);
         $stmt->execute();
     }
 

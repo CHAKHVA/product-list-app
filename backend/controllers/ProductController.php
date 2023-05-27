@@ -14,22 +14,15 @@ class ProductController
     {
         extract($data);
 
-        $product = null;
-        switch ($product_type) {
-            case 'DVD':
-                $product = new DVD(null, $sku, $name, $price, $size);
-                break;
-            case 'Book':
-                $product = new Book(null, $sku, $name, $price, $weight);
-                break;
-            case 'Furniture':
-                $product = new Furniture(null, $sku, $name, $price, $height, $width, $length);
-                break;
-        }
+        $productTypes = [
+            'DVD' => ['class' => 'DVD', 'args' => [$sku, $name, $price, $size]],
+            'Book' => ['class' => 'Book', 'args' => [$sku, $name, $price, $weight]],
+            'Furniture' => ['class' => 'Furniture', 'args' => [$sku, $name, $price, $height, $width, $length]],
+        ];
 
-        if ($product) {
-            $this->model->createProduct($product);
-        }
+        $productInfo = $productTypes[$product_type];
+        $product = new $productInfo['class'](null, ...$productInfo['args']);
+        $this->model->createProduct($product);
     }
 
     public function readProducts()

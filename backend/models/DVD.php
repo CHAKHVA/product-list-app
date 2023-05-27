@@ -6,7 +6,7 @@ class DVD extends Product
 {
     private $size;
 
-    public function __construct($id, $sku, $name, $price, $size)
+    public function __construct($id, $sku, $name, $price, $size = null)
     {
         parent::__construct($id, $sku, $name, $price, "DVD");
         $this->size = $size;
@@ -31,5 +31,16 @@ class DVD extends Product
             "price" => "{$this->getPrice()} $",
             "size" => "Size: {$this->getSize()} MB",
         ];
+    }
+
+    public function getAdditionalAttributes()
+    {
+        return [$this->size, null, null, null, null];
+    }
+
+    public function setAdditionalAttributes($row)
+    {
+        extract($row);
+        $this->size = $size;
     }
 }

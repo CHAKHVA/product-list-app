@@ -11,7 +11,7 @@ export default function Products({ products } : Props) {
   return (
     <div className="products">
       {products && products.map((product) => (
-        <Product key={product.id} {...product} />
+        <Product key={product.id} {...product}/>
       ))}
     </div>
   );

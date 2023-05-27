@@ -69,4 +69,7 @@ abstract class Product
     }
 
     public abstract function toArray();
+
+    public abstract function getAdditionalAttributes();
+    public abstract function setAdditionalAttributes($row);
 }
