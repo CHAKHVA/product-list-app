@@ -10,8 +10,9 @@ export default function ProductListHeader() {
   const { ids, getProducts } = useContext(IDContext);
 
   const handleClick = async () => {
+    const jsonData = JSON.stringify({ids : ids});
     await axios
-      .delete(`${API_KEY}/api/delete_products.php`, { data : {"ids" : ids}})
+      .post(`${API_KEY}/api/delete_products.php`, jsonData)
       .then((response) => {
         getProducts();
         console.log(response.data);
@@ -20,6 +21,7 @@ export default function ProductListHeader() {
         console.error(error);
       });
   };
+
   return (
     <header className="header">
       <nav className="navigation d-flex justify-content-between align-items-center">

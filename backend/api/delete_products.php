@@ -8,19 +8,18 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 require_once '../config/database.php';
 require_once '../controllers/ProductController.php';
 
-echo json_encode(['message' => 'Product deleted successfully.']);
-
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $database = new Database();
     $db = $database->getConnection();
     $controller = new ProductController($db);
     $data = json_decode(file_get_contents("php://input"));
-    foreach ($data->ids as $id) {
+    $data = get_object_vars($data)["ids"];
+    foreach ($data as $id) {
         $controller->deleteProduct($id);
     }
     echo json_encode(['message' => 'Product deleted successfully.']);
