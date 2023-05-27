@@ -6,7 +6,7 @@ import AddFurniture from "../AddFurniture/AddFurniture";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
-const API_KEY = "https://juniortest-aleksandre-chakhvashvili.000webhostapp.com" && "http://localhost:8000"
+const API_KEY = "https://juniortest-aleksandre-chakhvashvili.000webhostapp.com" || "http://localhost:8000"
 
 
 interface Props {

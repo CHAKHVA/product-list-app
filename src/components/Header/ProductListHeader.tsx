@@ -4,7 +4,7 @@ import "./Header.scss";
 import axios from "axios";
 import IDContext from "../../contexts/IDContext";
 
-const API_KEY = "https://juniortest-aleksandre-chakhvashvili.000webhostapp.com" && "http://localhost:8000"
+const API_KEY = "https://juniortest-aleksandre-chakhvashvili.000webhostapp.com" || "http://localhost:8000"
 
 export default function ProductListHeader() {
   const { ids, getProducts } = useContext(IDContext);
